@@ -21,7 +21,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class Dish {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
