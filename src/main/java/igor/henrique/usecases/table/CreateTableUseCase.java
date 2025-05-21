@@ -39,8 +39,7 @@ public class CreateTableUseCase{
         table.setCreatedAt(LocalDateTime.now());
         table.setTableStatus(TableStatus.AVAILABLE);
 
-        Table saved = tableJpaRepository.save(table);
-        return tableStructMapper.toTableOutputDTO(saved);
+        return tableStructMapper.toTableOutputDTO(tableJpaRepository.save(table));
     }
 }
 

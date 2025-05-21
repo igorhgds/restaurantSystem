@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 public class CreateUserUseCase {
 
     private final UserJpaRepository userJpaRepository;
-    private final UserStructMapper mapper;
+    private final UserStructMapper userStructMapper;
     private final BCryptPasswordEncoder encoder;
 
     public UserDetailedOutputDTO execute(CreateUserInputDTO dto) {
@@ -23,11 +23,10 @@ public class CreateUserUseCase {
             throw new IllegalArgumentException("E-mail já cadastrado");
         }
 
-        User user = mapper.toEntity(dto);
+        User user = userStructMapper.toEntity(dto);
         user.setPassword(encoder.encode(dto.password()));
 
-        User saved = userJpaRepository.save(user);
-        return mapper.toUserDetailedOutputDTO(saved);
+        return userStructMapper.toUserDetailedOutputDTO(userJpaRepository.save(user));
     }
 
 }
