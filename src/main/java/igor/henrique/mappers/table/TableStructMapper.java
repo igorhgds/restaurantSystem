@@ -1,0 +1,19 @@
+package igor.henrique.mappers.table;
+
+import igor.henrique.dtos.table.input.CreateTableInputDTO;
+import igor.henrique.dtos.table.output.TableOutputDTO;
+import igor.henrique.entities.Table;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+
+@Mapper(componentModel = "spring")
+public interface TableStructMapper {
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "waiter", ignore = true)
+    Table toEntity(CreateTableInputDTO dto);
+
+    @Mapping(source = "waiter.name", target = "waiterName")
+    TableOutputDTO toOutputDTO(Table table);
+}
