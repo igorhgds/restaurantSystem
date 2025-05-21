@@ -23,6 +23,14 @@ public class CreateTableUseCase{
 
     public TableOutputDTO createTable(CreateTableInputDTO dto){
 
+        tableJpaRepository.findByTableNumber(dto.tableNumber()).ifPresent(existing -> {
+            if (existing.getTableStatus() == TableStatus.OCCUPIED) {
+                throw new IllegalArgumentException("Essa mesa já está ocupada e não pode ser recriada.");
+            } else {
+                throw new IllegalArgumentException("Já existe uma mesa com esse número.");
+            }
+        });
+
         User waiter = userJpaRepository.findById(dto.waiterId())
                 .orElseThrow(() -> new IllegalArgumentException("Garçon não encontrado"));
 
