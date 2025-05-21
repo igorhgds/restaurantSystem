@@ -1,7 +1,6 @@
 package igor.henrique.usecases.user;
 
 import igor.henrique.dtos.user.output.UserDetailedOutputDTO;
-import igor.henrique.entities.User;
 import igor.henrique.mappers.user.UserStructMapper;
 import igor.henrique.repositories.UserJpaRepository;
 import jakarta.persistence.EntityNotFoundException;

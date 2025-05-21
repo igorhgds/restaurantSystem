@@ -29,5 +29,6 @@ public class CreateUserUseCase {
         User saved = userJpaRepository.save(user);
         return mapper.toUserDetailedOutputDTO(saved);
     }
+
 }
 
