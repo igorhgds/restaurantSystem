@@ -1,6 +1,7 @@
 package igor.henrique.usecases.user;
 
 import igor.henrique.repositories.UserJpaRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +11,9 @@ public class DeleteUserUseCase {
 
     private final UserJpaRepository userJpaRepository;
 
-    public void execute(Long id) {
-        userJpaRepository.deleteById(id);
+    public void delete(Long id) {
+        var user = userJpaRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado com id: " + id));
+        userJpaRepository.delete(user);
     }
 }
