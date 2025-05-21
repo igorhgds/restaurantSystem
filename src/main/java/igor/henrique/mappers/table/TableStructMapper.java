@@ -12,8 +12,9 @@ public interface TableStructMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "waiter", ignore = true)
+    @Mapping(target = "tableStatus", ignore = true)
     Table toEntity(CreateTableInputDTO dto);
 
     @Mapping(source = "waiter.name", target = "waiterName")
-    TableOutputDTO toOutputDTO(Table table);
+    TableOutputDTO toTableOutputDTO(Table table);
 }

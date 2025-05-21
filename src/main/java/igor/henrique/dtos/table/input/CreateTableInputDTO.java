@@ -9,9 +9,6 @@ public record CreateTableInputDTO(
         int tableNumber,
 
         @NotNull
-        TableStatus tableStatus,
-
-        @NotNull
         Long waiterId
 ) {
 }

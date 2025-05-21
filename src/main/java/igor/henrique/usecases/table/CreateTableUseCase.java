@@ -1,8 +1,10 @@
 package igor.henrique.usecases.table;
 
 import igor.henrique.dtos.table.input.CreateTableInputDTO;
+import igor.henrique.dtos.table.output.TableOutputDTO;
 import igor.henrique.entities.Table;
 import igor.henrique.entities.User;
+import igor.henrique.enums.TableStatus;
 import igor.henrique.mappers.table.TableStructMapper;
 import igor.henrique.repositories.TableJpaRepository;
 import igor.henrique.repositories.UserJpaRepository;
@@ -19,7 +21,7 @@ public class CreateTableUseCase{
     private final UserJpaRepository userJpaRepository;
     private final TableStructMapper tableStructMapper;
 
-    public void createTable(CreateTableInputDTO dto){
+    public TableOutputDTO createTable(CreateTableInputDTO dto){
 
         User waiter = userJpaRepository.findById(dto.waiterId())
                 .orElseThrow(() -> new IllegalArgumentException("Garçon não encontrado"));
@@ -27,8 +29,10 @@ public class CreateTableUseCase{
         Table table = tableStructMapper.toEntity(dto);
         table.setWaiter(waiter);
         table.setCreatedAt(LocalDateTime.now());
+        table.setTableStatus(TableStatus.AVAILABLE);
 
-        tableJpaRepository.save(table);
+        Table saved = tableJpaRepository.save(table);
+        return tableStructMapper.toTableOutputDTO(saved);
     }
 }
 
