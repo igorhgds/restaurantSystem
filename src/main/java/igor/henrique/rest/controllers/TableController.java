@@ -5,12 +5,14 @@ import igor.henrique.dtos.table.input.CreateTableInputDTO;
 import igor.henrique.dtos.table.output.TableOutputDTO;
 import igor.henrique.usecases.table.ChangeTableStatusUseCase;
 import igor.henrique.usecases.table.CreateTableUseCase;
+import igor.henrique.usecases.table.DeleteTableUseCase;
 import igor.henrique.usecases.table.FindTableByNumberTableUseCase;
 import igor.henrique.usecases.table.ListTablesUseCase;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,6 +33,7 @@ public class TableController {
     private final ListTablesUseCase listTablesUseCase;
     private final FindTableByNumberTableUseCase findTableByNumberTableUseCase;
     private final ChangeTableStatusUseCase changeTableStatusUseCase;
+    private final DeleteTableUseCase deleteTableUseCase;
 
     @PostMapping
     public ResponseEntity<TableOutputDTO> create(@RequestBody @Valid CreateTableInputDTO dto) {
@@ -53,6 +56,12 @@ public class TableController {
     @PatchMapping("/{tableNumber}/status")
     public ResponseEntity<Void> chanceStatus(@PathVariable Integer tableNumber, @RequestBody ChangeTableStatusInputDTO dto){
         changeTableStatusUseCase.changeStatus(tableNumber, dto.newStatus());
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/{tableNumber}")
+    public ResponseEntity<Void> delete(@PathVariable Integer tableNumber) {
+        deleteTableUseCase.delete(tableNumber);
         return ResponseEntity.noContent().build();
     }
 }
