@@ -29,7 +29,7 @@ public class Table {
     private Long id;
 
     @Column(name = "table_number", nullable = false)
-    private int tableNumber;
+    private Integer tableNumber;
 
     @Column(name = "table_status", nullable = false)
     @Enumerated(EnumType.STRING)

@@ -6,20 +6,16 @@ import igor.henrique.repositories.TableJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 @RequiredArgsConstructor
-public class ListTablesUseCase {
+public class FindTableByNumberTableUseCase {
 
     private final TableJpaRepository tableJpaRepository;
     private final TableStructMapper tableStructMapper;
 
-    public List<TableOutputDTO> listTables() {
-        return tableJpaRepository.findAll()
-                .stream()
+    public TableOutputDTO execute(Integer tableNumber){
+        return tableJpaRepository.findByTableNumber(tableNumber)
                 .map(tableStructMapper::toTableOutputDTO)
-                .toList();
+                .orElseThrow(() -> new IllegalArgumentException("Mesa nº " + tableNumber + " não encontrada"));
     }
-
 }
