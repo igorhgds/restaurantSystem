@@ -7,6 +7,6 @@ import java.util.Optional;
 
 public interface TableJpaRepository extends JpaRepository<Table, Long> {
 
-    Optional<Table> findByTableNumber(int tableNumber);
+    Optional<Table> findByTableNumber(Integer tableNumber);
 
 }
