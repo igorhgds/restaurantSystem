@@ -13,7 +13,7 @@ public class FindTableByNumberTableUseCase {
     private final TableJpaRepository tableJpaRepository;
     private final TableStructMapper tableStructMapper;
 
-    public TableOutputDTO execute(Integer tableNumber){
+    public TableOutputDTO getTable(Integer tableNumber){
         return tableJpaRepository.findByTableNumber(tableNumber)
                 .map(tableStructMapper::toTableOutputDTO)
                 .orElseThrow(() -> new IllegalArgumentException("Mesa nº " + tableNumber + " não encontrada"));
