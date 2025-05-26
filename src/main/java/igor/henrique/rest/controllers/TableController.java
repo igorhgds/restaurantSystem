@@ -8,6 +8,7 @@ import igor.henrique.usecases.table.CreateTableUseCase;
 import igor.henrique.usecases.table.DeleteTableUseCase;
 import igor.henrique.usecases.table.FindTableByNumberTableUseCase;
 import igor.henrique.usecases.table.ListTablesUseCase;
+import igor.henrique.usecases.table.UpdateTableWaiterUseCase;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -33,6 +34,7 @@ public class TableController {
     private final FindTableByNumberTableUseCase findTableByNumberTableUseCase;
     private final ChangeTableStatusUseCase changeTableStatusUseCase;
     private final DeleteTableUseCase deleteTableUseCase;
+    private final UpdateTableWaiterUseCase updateTableWaiterUseCase;
 
     @PostMapping
     public ResponseEntity<TableOutputDTO> create(@RequestBody @Valid CreateTableInputDTO dto) {
@@ -61,6 +63,12 @@ public class TableController {
     @DeleteMapping("/{tableNumber}")
     public ResponseEntity<Void> delete(@PathVariable Integer tableNumber) {
         deleteTableUseCase.delete(tableNumber);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PatchMapping("/{tableNumber}/waiter/{waiterId}")
+    public ResponseEntity<Void> updateTableWaiter(@PathVariable Integer tableNumber, @PathVariable Long waiterId) {
+        updateTableWaiterUseCase.updateTableWaiter(tableNumber, waiterId);
         return ResponseEntity.noContent().build();
     }
 }
