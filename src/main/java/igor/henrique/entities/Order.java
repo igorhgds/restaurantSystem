@@ -1,6 +1,7 @@
 package igor.henrique.entities;
 
 import igor.henrique.enums.OrderStatus;
+import igor.henrique.enums.TableStatus;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
