@@ -45,6 +45,7 @@ public class CreateOrderUseCase {
         order.setTable(table);
         order.setWaiter(waiter);
         order.setCreatedAt(LocalDateTime.now());
+        order.setTotalPrice(0.0);
 
         table.setTableStatus(TableStatus.OCCUPIED);
         tableJpaRepository.save(table);

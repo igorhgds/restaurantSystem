@@ -46,8 +46,8 @@ public class Order {
     @Column(nullable = false)
     private LocalDateTime createdAt;
 
-    @Column(nullable = false)
-    private BigDecimal totalPrice;
+    @Column(name = "total_price", nullable = false)
+    private Double totalPrice;
 
     @PrePersist
     public void prePersist() {
