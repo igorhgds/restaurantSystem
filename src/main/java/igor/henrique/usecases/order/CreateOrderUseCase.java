@@ -13,6 +13,7 @@ import igor.henrique.repositories.UserJpaRepository;
 import igor.henrique.usecases.table.CheckTableAvailabilityUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
@@ -26,7 +27,8 @@ public class CreateOrderUseCase {
     private final CheckTableAvailabilityUseCase checkTableAvailabilityUseCase;
     private final OrderStructMapper orderStructMapper;
 
-    public OrderOutputDTO execute(CreateOrderInputDTO dto) {
+    @Transactional
+    public OrderOutputDTO createOrder(CreateOrderInputDTO dto) {
         boolean isTableAvailable = checkTableAvailabilityUseCase.isAvailable(dto.tableNumber());
         if (!isTableAvailable) {
             throw new IllegalArgumentException("Mesa não disponível para criar pedido");
