@@ -1,0 +1,51 @@
+package igor.henrique.usecases.order;
+
+import igor.henrique.dtos.order.input.CreateOrderInputDTO;
+import igor.henrique.dtos.order.output.OrderOutputDTO;
+import igor.henrique.entities.Order;
+import igor.henrique.entities.Table;
+import igor.henrique.entities.User;
+import igor.henrique.enums.TableStatus;
+import igor.henrique.mappers.order.OrderStructMapper;
+import igor.henrique.repositories.OrderJpaRepository;
+import igor.henrique.repositories.TableJpaRepository;
+import igor.henrique.repositories.UserJpaRepository;
+import igor.henrique.usecases.table.CheckTableAvailabilityUseCase;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
+
+@Service
+@RequiredArgsConstructor
+public class CreateOrderUseCase {
+
+    private final OrderJpaRepository orderJpaRepository;
+    private final TableJpaRepository tableJpaRepository;
+    private final UserJpaRepository userJpaRepository;
+    private final CheckTableAvailabilityUseCase checkTableAvailabilityUseCase;
+    private final OrderStructMapper orderStructMapper;
+
+    public OrderOutputDTO execute(CreateOrderInputDTO dto) {
+        boolean isTableAvailable = checkTableAvailabilityUseCase.isAvailable(dto.tableNumber());
+        if (!isTableAvailable) {
+            throw new IllegalArgumentException("Mesa não disponível para criar pedido");
+        }
+
+        Table table = tableJpaRepository.findByTableNumber(dto.tableNumber())
+                .orElseThrow(() -> new IllegalArgumentException("Mesa não encontrada"));
+
+        User waiter = userJpaRepository.findById(dto.waiterId())
+                .orElseThrow(() -> new IllegalArgumentException("Garçom não encontrado"));
+
+        Order order = orderStructMapper.toEntity(dto);
+        order.setTable(table);
+        order.setWaiter(waiter);
+        order.setCreatedAt(LocalDateTime.now());
+
+        table.setTableStatus(TableStatus.OCCUPIED);
+        tableJpaRepository.save(table);
+
+        return orderStructMapper.toOrderOutputDTO(orderJpaRepository.save(order));
+    }
+}
