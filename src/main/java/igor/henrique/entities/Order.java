@@ -17,6 +17,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity(name = "orders")
@@ -44,6 +45,9 @@ public class Order {
 
     @Column(nullable = false)
     private LocalDateTime createdAt;
+
+    @Column(nullable = false)
+    private BigDecimal totalPrice;
 
     @PrePersist
     public void prePersist() {

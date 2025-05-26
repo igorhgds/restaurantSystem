@@ -5,6 +5,7 @@ import igor.henrique.dtos.order.output.OrderOutputDTO;
 import igor.henrique.entities.Order;
 import igor.henrique.entities.Table;
 import igor.henrique.entities.User;
+import igor.henrique.enums.OrderStatus;
 import igor.henrique.enums.TableStatus;
 import igor.henrique.mappers.order.OrderStructMapper;
 import igor.henrique.repositories.OrderJpaRepository;
@@ -31,7 +32,7 @@ public class CreateOrderUseCase {
     public OrderOutputDTO createOrder(CreateOrderInputDTO dto) {
         boolean isTableAvailable = checkTableAvailabilityUseCase.isAvailable(dto.tableNumber());
         if (!isTableAvailable) {
-            throw new IllegalArgumentException("Mesa não disponível para criar pedido");
+            throw new IllegalArgumentException("Mesa já está com pedido em andamento.");
         }
 
         Table table = tableJpaRepository.findByTableNumber(dto.tableNumber())
