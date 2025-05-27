@@ -4,7 +4,6 @@ import igor.henrique.entities.Order;
 import igor.henrique.enums.OrderStatus;
 import igor.henrique.enums.TableStatus;
 import igor.henrique.repositories.OrderJpaRepository;
-import igor.henrique.repositories.TableJpaRepository;
 import igor.henrique.usecases.table.ChangeTableStatusUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,7 +13,6 @@ import org.springframework.stereotype.Service;
 public class CloseOrderUseCase {
 
     private final OrderJpaRepository orderJpaRepository;
-    private final TableJpaRepository tableJpaRepository;
     private final ChangeTableStatusUseCase changeTableStatusUseCase;
 
     public void closeOrder(Long orderId) {

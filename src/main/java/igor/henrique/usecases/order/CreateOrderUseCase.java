@@ -51,8 +51,6 @@ public class CreateOrderUseCase {
         table.setWaiter(waiter);
         tableJpaRepository.save(table);
 
-
-
         return orderStructMapper.toOrderOutputDTO(orderJpaRepository.save(order));
     }
 }
