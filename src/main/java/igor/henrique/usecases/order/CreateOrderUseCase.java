@@ -16,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Service
@@ -45,7 +46,7 @@ public class CreateOrderUseCase {
         order.setTable(table);
         order.setWaiter(waiter);
         order.setCreatedAt(LocalDateTime.now());
-        order.setTotalPrice(0.0);
+        order.setTotalPrice(BigDecimal.ZERO);
 
         table.setTableStatus(TableStatus.OCCUPIED);
         table.setWaiter(waiter);

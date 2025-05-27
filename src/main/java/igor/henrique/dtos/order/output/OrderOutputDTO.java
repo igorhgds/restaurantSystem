@@ -8,6 +8,6 @@ public record OrderOutputDTO(
         String waiterName,
         String orderStatus,
         String orderDateTime,
-        Double totalPrice
+        BigDecimal totalPrice
 ) {
 }

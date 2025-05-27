@@ -19,6 +19,5 @@ public interface OrderStructMapper {
     @Mapping(target = "waiterName", source = "waiter.name")
     @Mapping(target = "orderStatus", source = "status")
     @Mapping(target = "orderDateTime", expression = "java(entity.getCreatedAt().format(java.time.format.DateTimeFormatter.ofPattern(\"dd/MM/yyyy HH:mm\")))")
-    @Mapping(target = "totalPrice", expression = "java(0.0)")
     OrderOutputDTO toOrderOutputDTO(Order entity);
 }

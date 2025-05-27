@@ -1,7 +1,6 @@
 package igor.henrique.entities;
 
 import igor.henrique.enums.OrderStatus;
-import igor.henrique.enums.TableStatus;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -48,7 +47,7 @@ public class Order {
     private LocalDateTime createdAt;
 
     @Column(name = "total_price", nullable = false)
-    private Double totalPrice;
+    private BigDecimal totalPrice = BigDecimal.ZERO;
 
     @PrePersist
     public void prePersist() {
