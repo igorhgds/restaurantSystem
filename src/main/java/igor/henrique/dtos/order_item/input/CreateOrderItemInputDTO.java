@@ -1,4 +1,11 @@
 package igor.henrique.dtos.order_item.input;
 
-public record CreateOrderItemInputDTO() {
+import java.math.BigDecimal;
+
+public record CreateOrderItemInputDTO(
+    Long orderId,
+    Long dishId,
+    Integer quantity,
+    BigDecimal unitPrice
+) {
 }
