@@ -12,7 +12,7 @@ public interface OrderStructMapper {
     @Mapping(target = "table", ignore = true)
     @Mapping(target = "waiter", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
-    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "orderId", ignore = true)
     Order toEntity(CreateOrderInputDTO dto);
 
     @Mapping(target = "tableNumber", source = "table.tableNumber")

@@ -9,7 +9,7 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface TableStructMapper {
 
-    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "tableId", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "waiter", ignore = true)
     @Mapping(target = "tableStatus", ignore = true)

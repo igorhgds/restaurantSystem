@@ -6,7 +6,6 @@ import igor.henrique.enums.TableStatus;
 import igor.henrique.repositories.OrderJpaRepository;
 import igor.henrique.repositories.TableJpaRepository;
 import igor.henrique.usecases.table.ChangeTableStatusUseCase;
-import igor.henrique.usecases.table.CheckTableAvailabilityUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +18,7 @@ public class CloseOrderUseCase {
     private final ChangeTableStatusUseCase changeTableStatusUseCase;
 
     public void closeOrder(Long orderId) {
-        Order order = orderJpaRepository.findById(orderId)
+        Order order = orderJpaRepository.findByOrderId(orderId)
                 .orElseThrow(() -> new IllegalArgumentException("Pedido não encontrado"));
 
         if (order.getStatus() == OrderStatus.CLOSED) {

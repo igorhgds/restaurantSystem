@@ -38,7 +38,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserDetailedOutputDTO> findById(@PathVariable Long id) {
+    public ResponseEntity<UserDetailedOutputDTO> findByUserId(@PathVariable Long id) {
         var user = findUserByIdUseCase.execute(id);
         return ResponseEntity.ok(user);
     }

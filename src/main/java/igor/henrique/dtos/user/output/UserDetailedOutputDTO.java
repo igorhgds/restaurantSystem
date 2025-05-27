@@ -6,7 +6,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import java.time.LocalDateTime;
 
 public record UserDetailedOutputDTO (
-        Long id,
+        Long userId,
 
         @Schema(example = "Igor")
         String name,

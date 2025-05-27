@@ -23,7 +23,8 @@ public class Dish {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "dish_id")
+    private Long dishId;
 
     @Column(nullable = false, unique = true)
     private String name;

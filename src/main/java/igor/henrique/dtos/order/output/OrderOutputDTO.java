@@ -3,7 +3,7 @@ package igor.henrique.dtos.order.output;
 import java.math.BigDecimal;
 
 public record OrderOutputDTO(
-        Long id,
+        Long orderId,
         Integer tableNumber,
         String waiterName,
         String orderStatus,

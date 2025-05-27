@@ -48,7 +48,10 @@ public class CreateOrderUseCase {
         order.setTotalPrice(0.0);
 
         table.setTableStatus(TableStatus.OCCUPIED);
+        table.setWaiter(waiter);
         tableJpaRepository.save(table);
+
+
 
         return orderStructMapper.toOrderOutputDTO(orderJpaRepository.save(order));
     }

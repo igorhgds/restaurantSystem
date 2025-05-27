@@ -12,7 +12,7 @@ public class DeleteUserUseCase {
     private final UserJpaRepository userJpaRepository;
 
     public void delete(Long id) {
-        var user = userJpaRepository.findById(id)
+        var user = userJpaRepository.findByUserId(id)
                 .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado com id: " + id));
         userJpaRepository.delete(user);
     }

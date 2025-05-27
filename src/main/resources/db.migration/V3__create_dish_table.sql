@@ -1,5 +1,5 @@
 CREATE TABLE dishes (
-        id SERIAL PRIMARY KEY,
+        dishId SERIAL PRIMARY KEY,
         name VARCHAR(255) NOT NULL UNIQUE,
         description VARCHAR(500),
         price NUMERIC(10, 2) NOT NULL,

@@ -26,7 +26,8 @@ public class Table {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "table_id")
+    private Long tableId;
 
     @Column(name = "table_number", nullable = false)
     private Integer tableNumber;
