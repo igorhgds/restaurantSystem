@@ -8,6 +8,7 @@ import igor.henrique.dtos.order_item.output.OrderItemOutputDTO;
 import igor.henrique.usecases.order.AddItemToOrderUseCase;
 import igor.henrique.usecases.order.CloseOrderUseCase;
 import igor.henrique.usecases.order.CreateOrderUseCase;
+import igor.henrique.usecases.order.ListOrderItemByOrderIdUseCase;
 import igor.henrique.usecases.order.ListOrdersUseCase;
 import igor.henrique.usecases.order.RemoveItemFromOrderUseCase;
 import jakarta.validation.Valid;
@@ -36,6 +37,7 @@ public class OrderController {
     private final ListOrdersUseCase listOrdersUseCase;
     private final AddItemToOrderUseCase addItemToOrderUseCase;
     private final RemoveItemFromOrderUseCase removeItemFromOrderUseCase;
+    private final ListOrderItemByOrderIdUseCase listOrderItemByOrderIdUseCase;
 
     @PostMapping
     public ResponseEntity<OrderOutputDTO> createOrder(@RequestBody CreateOrderInputDTO dto) {
@@ -76,13 +78,19 @@ public class OrderController {
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
 
-    @DeleteMapping("/{orderId}/items/{itemId}")
+    @DeleteMapping("/{orderId}/items/{orderItemId}")
     public ResponseEntity<Void> removeItemFromOrder(
             @PathVariable Long orderId,
-            @PathVariable Long itemId) {
+            @PathVariable Long orderItemId) {
 
-        removeItemFromOrderUseCase.removeItem(orderId, itemId);
+        removeItemFromOrderUseCase.removeItem(orderId, orderItemId);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/{orderId}/items")
+    public ResponseEntity<List<OrderItemOutputDTO>> listItems(@PathVariable Long orderId) {
+        List<OrderItemOutputDTO> items = listOrderItemByOrderIdUseCase.listItems(orderId);
+        return ResponseEntity.ok(items);
     }
 
 }
