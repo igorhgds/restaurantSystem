@@ -28,8 +28,10 @@ public class AddItemToOrderUseCase {
 
         OrderItemOutputDTO itemDTO = createOrderItemUseCase.createOrderItem(dto);
 
-        BigDecimal itemTotal = BigDecimal.valueOf(itemDTO.unitPrice())
-                .multiply(BigDecimal.valueOf(itemDTO.quantity()));
+        BigDecimal unitPrice = itemDTO.unitPrice() != null ? BigDecimal.valueOf(itemDTO.unitPrice()) : BigDecimal.ZERO;
+        int quantity = itemDTO.quantity() != null ? itemDTO.quantity() : 0;
+
+        BigDecimal itemTotal = unitPrice.multiply(BigDecimal.valueOf(quantity));
 
         if (order.getTotalPrice() == null) {
             order.setTotalPrice(BigDecimal.ZERO);
@@ -41,3 +43,4 @@ public class AddItemToOrderUseCase {
         return itemDTO;
     }
 }
+

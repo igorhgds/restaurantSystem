@@ -3,9 +3,13 @@ package igor.henrique.rest.controllers;
 import igor.henrique.dtos.order.input.CreateOrderInputDTO;
 import igor.henrique.dtos.order.input.ListOrdersFilterInputDTO;
 import igor.henrique.dtos.order.output.OrderOutputDTO;
+import igor.henrique.dtos.order_item.input.CreateOrderItemInputDTO;
+import igor.henrique.dtos.order_item.output.OrderItemOutputDTO;
+import igor.henrique.usecases.order.AddItemToOrderUseCase;
 import igor.henrique.usecases.order.CloseOrderUseCase;
 import igor.henrique.usecases.order.CreateOrderUseCase;
 import igor.henrique.usecases.order.ListOrdersUseCase;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +32,7 @@ public class OrderController {
     private final CreateOrderUseCase createOrderUseCase;
     private final CloseOrderUseCase closeOrderUseCase;
     private final ListOrdersUseCase listOrdersUseCase;
+    private final AddItemToOrderUseCase addItemToOrderUseCase;
 
     @PostMapping
     public ResponseEntity<OrderOutputDTO> createOrder(@RequestBody CreateOrderInputDTO dto) {
@@ -51,6 +56,24 @@ public class OrderController {
         List<OrderOutputDTO> result = listOrdersUseCase.listOrders(filter);
         return ResponseEntity.ok(result);
     }
+
+    @PostMapping("/{orderId}/items")
+    public ResponseEntity<OrderItemOutputDTO> addItemToOrder(
+            @PathVariable Long orderId,
+            @RequestBody @Valid CreateOrderItemInputDTO dto) {
+
+        CreateOrderItemInputDTO fixedDto = new CreateOrderItemInputDTO(
+                orderId,
+                dto.dishId(),
+                dto.quantity(),
+                dto.unitPrice()
+        );
+
+        OrderItemOutputDTO result = addItemToOrderUseCase.addItem(fixedDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(result);
+    }
+
+
 
 
 }
