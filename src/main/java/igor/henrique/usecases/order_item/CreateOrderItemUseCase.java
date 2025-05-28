@@ -34,23 +34,9 @@ public class CreateOrderItemUseCase {
         orderItem.setOrder(order);
         orderItem.setDish(dish);
         orderItem.setQuantity(dto.quantity());
-        orderItem.setUnitPrice(dto.unitPrice());
-
-        if (orderItem.getUnitPrice() == null) {
-            orderItem.setUnitPrice(dish.getPrice());
-        }
+        orderItem.setUnitPrice(dto.unitPrice() != null ? dto.unitPrice() : dish.getPrice());
 
         OrderItem savedItem = orderItemJpaRepository.save(orderItem);
-
-        BigDecimal itemTotal = savedItem.getUnitPrice()
-                .multiply(BigDecimal.valueOf(savedItem.getQuantity()));
-
-        if (order.getTotalPrice() == null) {
-            order.setTotalPrice(BigDecimal.ZERO);
-        }
-
-        order.setTotalPrice(order.getTotalPrice().add(itemTotal));
-        orderJpaRepository.save(order);
 
         return orderItemStructMapper.toOrderItemOutputDTO(savedItem);
     }
