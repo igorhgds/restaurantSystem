@@ -57,7 +57,6 @@ public class Order {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<OrderItem> items = new ArrayList<>();
 
-
     @PrePersist
     public void prePersist() {
         this.createdAt = LocalDateTime.now();
@@ -65,4 +64,12 @@ public class Order {
             status = OrderStatus.OPEN;
         }
     }
+
+    public BigDecimal calculateTotal() {
+        items.forEach(i -> System.out.println("Item: " + i.getDish().getName() + ", Qtd: " + i.getQuantity() + ", Unit: " + i.getUnitPrice()));
+        return items.stream()
+                .map(OrderItem::getSubtotal)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
 }

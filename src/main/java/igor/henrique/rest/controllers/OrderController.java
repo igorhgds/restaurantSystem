@@ -2,12 +2,14 @@ package igor.henrique.rest.controllers;
 
 import igor.henrique.dtos.order.input.CreateOrderInputDTO;
 import igor.henrique.dtos.order.input.ListOrdersFilterInputDTO;
+import igor.henrique.dtos.order.output.OrderDetailsOutputDTO;
 import igor.henrique.dtos.order.output.OrderOutputDTO;
 import igor.henrique.dtos.order_item.input.CreateOrderItemInputDTO;
 import igor.henrique.dtos.order_item.output.OrderItemOutputDTO;
 import igor.henrique.usecases.order.AddItemToOrderUseCase;
 import igor.henrique.usecases.order.CloseOrderUseCase;
 import igor.henrique.usecases.order.CreateOrderUseCase;
+import igor.henrique.usecases.order.GetOrderDetailsUseCase;
 import igor.henrique.usecases.order.ListOrderItemByOrderIdUseCase;
 import igor.henrique.usecases.order.ListOrdersUseCase;
 import igor.henrique.usecases.order.RemoveItemFromOrderUseCase;
@@ -40,6 +42,7 @@ public class OrderController {
     private final AddItemToOrderUseCase addItemToOrderUseCase;
     private final RemoveItemFromOrderUseCase removeItemFromOrderUseCase;
     private final ListOrderItemByOrderIdUseCase listOrderItemByOrderIdUseCase;
+    private final GetOrderDetailsUseCase getOrderDetailsUseCase;
 
     @PostMapping
     public ResponseEntity<OrderOutputDTO> createOrder(@RequestBody CreateOrderInputDTO dto) {
@@ -93,6 +96,11 @@ public class OrderController {
     public ResponseEntity<List<OrderItemOutputDTO>> listItems(@PathVariable Long orderId) {
         List<OrderItemOutputDTO> items = listOrderItemByOrderIdUseCase.listItems(orderId);
         return ResponseEntity.ok(items);
+    }
+
+    @GetMapping("/{orderId}/details")
+    public ResponseEntity<OrderDetailsOutputDTO> getOrderDetails(@PathVariable Long orderId) {
+        return ResponseEntity.ok(getOrderDetailsUseCase.execute(orderId));
     }
 
 }
