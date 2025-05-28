@@ -6,6 +6,8 @@ import igor.henrique.entities.OrderItem;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface OrderItemStructMapper {
 
@@ -15,5 +17,8 @@ public interface OrderItemStructMapper {
     @Mapping(source = "dish.dishId", target = "dishId")
     @Mapping(source = "dish.name", target = "dishName")
     OrderItemOutputDTO toOrderItemOutputDTO(OrderItem input);
+
+    List<OrderItemOutputDTO> toOrderItemOutputDTOList(List<OrderItem> items);
+
 }
 
