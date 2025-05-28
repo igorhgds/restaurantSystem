@@ -9,10 +9,12 @@ import igor.henrique.usecases.order.AddItemToOrderUseCase;
 import igor.henrique.usecases.order.CloseOrderUseCase;
 import igor.henrique.usecases.order.CreateOrderUseCase;
 import igor.henrique.usecases.order.ListOrdersUseCase;
+import igor.henrique.usecases.order.RemoveItemFromOrderUseCase;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,6 +35,7 @@ public class OrderController {
     private final CloseOrderUseCase closeOrderUseCase;
     private final ListOrdersUseCase listOrdersUseCase;
     private final AddItemToOrderUseCase addItemToOrderUseCase;
+    private final RemoveItemFromOrderUseCase removeItemFromOrderUseCase;
 
     @PostMapping
     public ResponseEntity<OrderOutputDTO> createOrder(@RequestBody CreateOrderInputDTO dto) {
@@ -73,7 +76,13 @@ public class OrderController {
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
 
+    @DeleteMapping("/{orderId}/items/{itemId}")
+    public ResponseEntity<Void> removeItemFromOrder(
+            @PathVariable Long orderId,
+            @PathVariable Long itemId) {
 
-
+        removeItemFromOrderUseCase.removeItem(orderId, itemId);
+        return ResponseEntity.noContent().build();
+    }
 
 }
