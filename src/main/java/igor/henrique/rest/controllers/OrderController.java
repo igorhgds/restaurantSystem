@@ -4,9 +4,11 @@ import igor.henrique.dtos.order.input.CreateOrderInputDTO;
 import igor.henrique.dtos.order.input.ListOrdersFilterInputDTO;
 import igor.henrique.dtos.order.output.OrderDetailsOutputDTO;
 import igor.henrique.dtos.order.output.OrderOutputDTO;
+import igor.henrique.dtos.order.output.OrderTotalOutputDTO;
 import igor.henrique.dtos.order_item.input.CreateOrderItemInputDTO;
 import igor.henrique.dtos.order_item.output.OrderItemOutputDTO;
 import igor.henrique.usecases.order.AddItemToOrderUseCase;
+import igor.henrique.usecases.order.CalculateOrderTotalUseCase;
 import igor.henrique.usecases.order.CloseOrderUseCase;
 import igor.henrique.usecases.order.CreateOrderUseCase;
 import igor.henrique.usecases.order.GetOrderDetailsUseCase;
@@ -43,6 +45,7 @@ public class OrderController {
     private final RemoveItemFromOrderUseCase removeItemFromOrderUseCase;
     private final ListOrderItemByOrderIdUseCase listOrderItemByOrderIdUseCase;
     private final GetOrderDetailsUseCase getOrderDetailsUseCase;
+    private final CalculateOrderTotalUseCase calculateOrderTotalUseCase;
 
     @PostMapping
     public ResponseEntity<OrderOutputDTO> createOrder(@RequestBody CreateOrderInputDTO dto) {
@@ -100,7 +103,13 @@ public class OrderController {
 
     @GetMapping("/{orderId}/details")
     public ResponseEntity<OrderDetailsOutputDTO> getOrderDetails(@PathVariable Long orderId) {
-        return ResponseEntity.ok(getOrderDetailsUseCase.execute(orderId));
+        return ResponseEntity.ok(getOrderDetailsUseCase.getOrderDetails(orderId));
+    }
+
+    @GetMapping("/{orderId}/total")
+    public ResponseEntity<OrderTotalOutputDTO> calculateTotal(@PathVariable Long orderId) {
+        OrderTotalOutputDTO dto = calculateOrderTotalUseCase.calculateTotal(orderId);
+        return ResponseEntity.ok(dto);
     }
 
 }

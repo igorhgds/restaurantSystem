@@ -13,7 +13,7 @@ public class GetOrderDetailsUseCase {
     private final OrderJpaRepository orderJpaRepository;
     private final OrderDetailsMapper orderDetailsMapper;
 
-    public OrderDetailsOutputDTO execute(Long orderId) {
+    public OrderDetailsOutputDTO getOrderDetails(Long orderId) {
         return orderJpaRepository.findById(orderId)
                 .map(orderDetailsMapper::toOrderDetailsOutputDTO)
                 .orElseThrow(() -> new IllegalArgumentException("Pedido não encontrado"));
