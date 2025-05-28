@@ -6,7 +6,6 @@ import igor.henrique.entities.Dish;
 import igor.henrique.mappers.dish.DishStructMapper;
 import igor.henrique.repositories.DishJpaRepository;
 import lombok.RequiredArgsConstructor;
-import org.springdoc.api.AbstractOpenApiResource;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -15,7 +14,6 @@ public class CreateDishUseCase {
 
     private final DishJpaRepository dishJpaRepository;
     private final DishStructMapper dishStructMapper;
-    private final AbstractOpenApiResource abstractOpenApiResource;
 
     public DishOutputDTO createDish(CreateDishInputDTO dto){
 

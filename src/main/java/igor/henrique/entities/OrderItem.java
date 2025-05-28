@@ -52,4 +52,11 @@ public class OrderItem {
             this.unitPrice = dish.getPrice();
         }
     }
+
+    public BigDecimal getSubtotal() {
+        if (unitPrice == null || quantity == null) {
+            return BigDecimal.ZERO;
+        }
+        return unitPrice.multiply(BigDecimal.valueOf(quantity));
+    }
 }
