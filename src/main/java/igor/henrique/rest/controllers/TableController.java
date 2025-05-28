@@ -9,6 +9,7 @@ import igor.henrique.usecases.table.DeleteTableUseCase;
 import igor.henrique.usecases.table.FindTableByNumberTableUseCase;
 import igor.henrique.usecases.table.ListTablesUseCase;
 import igor.henrique.usecases.table.UpdateTableWaiterUseCase;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -27,6 +28,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/tables")
+@Tag(name = "TableController", description = "Operações relacionadas às mesas do restaurante")
 public class TableController {
 
     private final CreateTableUseCase createTableUseCase;

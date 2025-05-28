@@ -7,6 +7,7 @@ import igor.henrique.usecases.user.CreateUserUseCase;
 import igor.henrique.usecases.user.DeleteUserUseCase;
 import igor.henrique.usecases.user.FindUserByIdUseCase;
 import igor.henrique.usecases.user.ListUsersUseCase;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -24,6 +25,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/users")
+@Tag(name = "UserController", description = "Operações relacionadas aos usuários do restaurante")
 public class UserController {
 
     private final CreateUserUseCase createUserUseCase;

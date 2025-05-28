@@ -11,6 +11,7 @@ import igor.henrique.usecases.order.CreateOrderUseCase;
 import igor.henrique.usecases.order.ListOrderItemByOrderIdUseCase;
 import igor.henrique.usecases.order.ListOrdersUseCase;
 import igor.henrique.usecases.order.RemoveItemFromOrderUseCase;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -30,6 +31,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/orders")
 @RequiredArgsConstructor
+@Tag(name = "OrderController", description = "Operações relacionadas aos pedidos do restaurante")
 public class OrderController {
 
     private final CreateOrderUseCase createOrderUseCase;
