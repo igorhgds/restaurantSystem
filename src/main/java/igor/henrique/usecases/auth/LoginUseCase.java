@@ -22,7 +22,6 @@ public class LoginUseCase {
         var auth = this.authenticationManager.authenticate(usernamePassword);
 
         var userDetails = (UserDetailsDTO) auth.getPrincipal();
-
         var token = this.jwtTokenService.generateToken(userDetails);
 
         return new LoginOutputDTO(token);

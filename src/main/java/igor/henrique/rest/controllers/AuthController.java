@@ -2,11 +2,9 @@ package igor.henrique.rest.controllers;
 
 import igor.henrique.dtos.auth.input.LoginInputDTO;
 import igor.henrique.dtos.auth.output.LoginOutputDTO;
-
 import igor.henrique.usecases.auth.LoginUseCase;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -1,9 +1,7 @@
 package igor.henrique.security.config;
 
 import igor.henrique.enums.UserRole;
-import igor.henrique.repositories.UserJpaRepository;
 import igor.henrique.security.filter.AuthenticationFilter;
-import igor.henrique.security.services.JwtTokenService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,6 +9,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -19,8 +18,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.web.util.matcher.RegexRequestMatcher;
 
 @Configuration
+@EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
 
+    private final AuthenticationFilter authenticationFilter;
     private final String UUID_REGEX = "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}";
 
     private static final String[] SWAGGER_RESOURCES = {
@@ -51,15 +53,7 @@ public class SecurityConfig {
     };
 
     @Bean
-    public SecurityFilterChain securityFilterChain(
-            HttpSecurity httpSecurity,
-
-            JwtTokenService jwtTokenService,
-            UserJpaRepository userJpaRepository
-    ) throws Exception {
-
-        AuthenticationFilter authenticationFilter = new AuthenticationFilter(jwtTokenService, userJpaRepository);
-
+    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

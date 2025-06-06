@@ -31,7 +31,7 @@ public class JwtTokenService {
 
             return JWT.create()
                     .withIssuer(this.issuer)
-                    .withSubject(user.getUsername())
+                    .withSubject(user.getUser().getUserId().toString())
                     .withIssuedAt(LocalDateTime.now().toInstant(zoneOffset))
                     .withExpiresAt(LocalDateTime.now().plusMinutes(this.expiration).toInstant(zoneOffset))
                     .withPayload(Map.of("user", user.toMap()))
