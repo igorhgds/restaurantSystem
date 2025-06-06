@@ -1,4 +1,4 @@
-package igor.henrique.config.security;
+package igor.henrique.security.config;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;

@@ -25,5 +25,4 @@ public interface OrderJpaRepository extends JpaRepository<Order, Long> {
             @Param("orderStatus") OrderStatus orderStatus
     );
 
-
 }
