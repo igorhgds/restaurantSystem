@@ -18,11 +18,12 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 import java.util.Objects;
-import java.util.UUID;
+
 
 @Component
 @RequiredArgsConstructor
 public class AuthenticationFilter extends OncePerRequestFilter {
+
     private final JwtTokenService jwtTokenService;
     private final UserJpaRepository userJpaRepository;
     //private final MessageService messageService;
@@ -46,7 +47,6 @@ public class AuthenticationFilter extends OncePerRequestFilter {
 
     private String extractToken(HttpServletRequest request){
         final var token = request.getHeader("Authorization");
-
         if (token == null || !token.startsWith("Bearer "))
             return null;
 
@@ -65,13 +65,15 @@ public class AuthenticationFilter extends OncePerRequestFilter {
             throw new RuntimeException("Invalid user ID in token: " + userIdString, e);
         }
 
-        final var user = this.userJpaRepository.findByUserId(userIdAsLong) // Usar o Long aqui
+        final var user = this.userJpaRepository.findByUserId(userIdAsLong)
                 .orElseThrow(EntityNotFoundException::new);
+
         final var userDetails = new UserDetailsDTO(user);
 
         final var authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
         authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
         SecurityContextHolder.getContext().setAuthentication(authentication);
+
     }
 
 }

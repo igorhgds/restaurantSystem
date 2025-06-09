@@ -15,11 +15,13 @@ import java.util.Map;
 @Getter
 public class UserDetailsDTO implements UserDetails {
 
+
     private User user;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(this.user.getRole().name()));
+        final var authorities = List.of(new SimpleGrantedAuthority("ROLE_" + this.user.getRole().name()));
+        return authorities;
     }
 
     @Override
@@ -36,7 +38,8 @@ public class UserDetailsDTO implements UserDetails {
         return Map.of(
                 "id", this.user.getUserId().toString(),
                 "name", this.user.getName(),
-                "email", this.user.getEmail()
+                "email", this.user.getEmail(),
+                "role", this.user.getRole().name()
         );
     }
 }

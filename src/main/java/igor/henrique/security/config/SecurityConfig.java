@@ -49,7 +49,9 @@ public class SecurityConfig {
     };
 
     private static final String[] PUBLIC_GET_ENDPOINTS = {
-            "/user/*/validate-email"
+            "/user/*/validate-email",
+            "/users",
+            "/users/{id}"
     };
 
     @Bean
@@ -65,6 +67,10 @@ public class SecurityConfig {
                                 RegexRequestMatcher.regexMatcher(
                                         HttpMethod.GET, "/user/" + UUID_REGEX)).hasAnyAuthority(UserRole.ADMIN.name())
                         .requestMatchers(SWAGGER_RESOURCES).permitAll()
+
+                        //Permissão para CRUD USER
+                        .requestMatchers(HttpMethod.POST, "/users").hasRole(UserRole.ADMIN.name())
+                        .requestMatchers(HttpMethod.DELETE, "/users/{id}").hasRole(UserRole.ADMIN.name())
                         .anyRequest().authenticated()
                 )
                 // Use a instância do filtro que você acabou de criar NESTA LINHA

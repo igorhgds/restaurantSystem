@@ -37,20 +37,22 @@ public class JwtTokenService {
                     .withPayload(Map.of("user", user.toMap()))
                     .sign(algorithm);
         }catch (JWTCreationException jwtCreationException){
-            throw new RuntimeException(jwtCreationException);
+            throw new RuntimeException("erro ao gerar token jwt ",jwtCreationException);
         }
     }
 
     public String getUserId(String token){
-            var algorithm = Algorithm.HMAC256(this.secret);
-
+        try{
+        var algorithm = Algorithm.HMAC256(this.secret);
             String id = JWT.require(algorithm)
                     .withIssuer(this.issuer)
                     .build()
                     .verify(token)
                     .getSubject();
-
             return id;
+        }catch (JWTCreationException jwtCreationException){
+            throw new RuntimeException("Token JWT inválido ou expirado!", jwtCreationException);
+        }
 
     }
 }
