@@ -3,6 +3,8 @@ package igor.henrique.usecases.user;
 import igor.henrique.dtos.user.input.CreateUserInputDTO;
 import igor.henrique.dtos.user.output.UserDetailedOutputDTO;
 import igor.henrique.entities.User;
+import igor.henrique.errors.ExceptionCode;
+import igor.henrique.errors.exceptions.BusinessRuleException;
 import igor.henrique.mappers.user.UserStructMapper;
 import igor.henrique.repositories.UserJpaRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +22,7 @@ public class CreateUserUseCase {
 
     public UserDetailedOutputDTO execute(CreateUserInputDTO dto) {
         if (userJpaRepository.findByEmail(dto.email()).isPresent()) {
-            throw new IllegalArgumentException("E-mail já cadastrado");
+            throw new BusinessRuleException(ExceptionCode.DUPLICATED_RESOURCE);
         }
 
         User user = userStructMapper.toEntity(dto);
