@@ -7,6 +7,7 @@ import igor.henrique.dtos.order.output.OrderOutputDTO;
 import igor.henrique.dtos.order.output.OrderTotalOutputDTO;
 import igor.henrique.dtos.order_item.input.CreateOrderItemInputDTO;
 import igor.henrique.dtos.order_item.output.OrderItemOutputDTO;
+import igor.henrique.rest.specs.OrderControllerSpecs;
 import igor.henrique.usecases.order.AddItemToOrderUseCase;
 import igor.henrique.usecases.order.CalculateOrderTotalUseCase;
 import igor.henrique.usecases.order.CloseOrderUseCase;
@@ -36,8 +37,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/orders")
 @RequiredArgsConstructor
-@Tag(name = "OrderController", description = "Operações relacionadas aos pedidos do restaurante")
-public class OrderController {
+public class OrderController implements OrderControllerSpecs {
 
     private final CreateOrderUseCase createOrderUseCase;
     private final CloseOrderUseCase closeOrderUseCase;

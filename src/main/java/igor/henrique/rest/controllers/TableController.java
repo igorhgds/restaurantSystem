@@ -3,6 +3,7 @@ package igor.henrique.rest.controllers;
 import igor.henrique.dtos.table.input.ChangeTableStatusInputDTO;
 import igor.henrique.dtos.table.input.CreateTableInputDTO;
 import igor.henrique.dtos.table.output.TableOutputDTO;
+import igor.henrique.rest.specs.TableControllerSpecs;
 import igor.henrique.usecases.table.ChangeTableStatusUseCase;
 import igor.henrique.usecases.table.CreateTableUseCase;
 import igor.henrique.usecases.table.DeleteTableUseCase;
@@ -29,8 +30,7 @@ import java.util.UUID;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/tables")
-@Tag(name = "TableController", description = "Operações relacionadas às mesas do restaurante")
-public class TableController {
+public class TableController implements TableControllerSpecs {
 
     private final CreateTableUseCase createTableUseCase;
     private final ListTablesUseCase listTablesUseCase;

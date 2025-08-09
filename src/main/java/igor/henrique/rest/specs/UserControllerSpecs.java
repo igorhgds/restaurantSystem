@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import java.util.List;
 import java.util.UUID;
 
-@Tag(name = "UserController", description = "Operações relacionadas aos usuários do restaurante")
+@Tag(name = "2. User")
 public interface UserControllerSpecs {
 
     @Operation(summary = "Cria um novo usuário",
