@@ -1,13 +1,12 @@
 package igor.henrique.rest.controllers;
 
-import igor.henrique.dtos.table.output.TableOutputDTO;
 import igor.henrique.dtos.user.input.CreateUserInputDTO;
 import igor.henrique.dtos.user.output.UserDetailedOutputDTO;
+import igor.henrique.rest.specs.UserControllerSpecs;
 import igor.henrique.usecases.user.CreateUserUseCase;
 import igor.henrique.usecases.user.DeleteUserUseCase;
 import igor.henrique.usecases.user.FindUserByIdUseCase;
 import igor.henrique.usecases.user.ListUsersUseCase;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -26,8 +25,7 @@ import java.util.UUID;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/users")
-@Tag(name = "UserController", description = "Operações relacionadas aos usuários do restaurante")
-public class UserController {
+public class UserController implements UserControllerSpecs {
 
     private final CreateUserUseCase createUserUseCase;
     private final FindUserByIdUseCase findUserByIdUseCase;
