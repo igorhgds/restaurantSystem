@@ -15,6 +15,7 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity(name = "order_items")
 @Getter
@@ -24,9 +25,9 @@ import java.time.LocalDateTime;
 public class OrderItem {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "order_item_id")
-    private Long orderItemId;
+    private UUID orderItemId;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "order_id")

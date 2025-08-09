@@ -1,9 +1,10 @@
 package igor.henrique.dtos.dish.output;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 public record DishOutputDTO(
-        Long dishId,
+        UUID dishId,
         String name,
         String description,
         BigDecimal price

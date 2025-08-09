@@ -4,9 +4,10 @@ import igor.henrique.enums.UserRole;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 public record UserDetailedOutputDTO (
-        Long userId,
+        UUID userId,
 
         @Schema(example = "Igor")
         String name,

@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
@@ -69,7 +70,7 @@ public class TableController {
     }
 
     @PatchMapping("/{tableNumber}/waiter/{waiterId}")
-    public ResponseEntity<Void> updateTableWaiter(@PathVariable Integer tableNumber, @PathVariable Long waiterId) {
+    public ResponseEntity<Void> updateTableWaiter(@PathVariable Integer tableNumber, @PathVariable UUID waiterId) {
         updateTableWaiterUseCase.updateTableWaiter(tableNumber, waiterId);
         return ResponseEntity.noContent().build();
     }

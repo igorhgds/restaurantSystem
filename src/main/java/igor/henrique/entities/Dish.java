@@ -13,6 +13,7 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity(name = "dishes")
 @Getter
@@ -22,9 +23,9 @@ import java.time.LocalDateTime;
 public class Dish {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "dish_id")
-    private Long dishId;
+    private UUID dishId;
 
     @Column(nullable = false, unique = true)
     private String name;

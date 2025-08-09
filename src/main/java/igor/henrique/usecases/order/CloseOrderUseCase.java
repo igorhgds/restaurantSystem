@@ -8,6 +8,8 @@ import igor.henrique.usecases.table.ChangeTableStatusUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 @RequiredArgsConstructor
 public class CloseOrderUseCase {
@@ -15,7 +17,7 @@ public class CloseOrderUseCase {
     private final OrderJpaRepository orderJpaRepository;
     private final ChangeTableStatusUseCase changeTableStatusUseCase;
 
-    public void closeOrder(Long orderId) {
+    public void closeOrder(UUID orderId) {
         Order order = orderJpaRepository.findByOrderId(orderId)
                 .orElseThrow(() -> new IllegalArgumentException("Pedido não encontrado"));
 

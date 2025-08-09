@@ -68,7 +68,6 @@ public class SecurityConfig {
                                         HttpMethod.GET, "/user/" + UUID_REGEX)).hasAnyAuthority(UserRole.ADMIN.name())
                         .requestMatchers(SWAGGER_RESOURCES).permitAll()
 
-                        //Permissão para CRUD USER
                         .requestMatchers(HttpMethod.POST, "/users").hasRole(UserRole.ADMIN.name())
                         .requestMatchers(HttpMethod.DELETE, "/users/{id}").hasRole(UserRole.ADMIN.name())
                         .anyRequest().authenticated()

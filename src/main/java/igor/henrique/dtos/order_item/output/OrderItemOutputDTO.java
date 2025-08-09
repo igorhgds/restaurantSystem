@@ -1,9 +1,11 @@
 package igor.henrique.dtos.order_item.output;
 
+import java.util.UUID;
+
 public record OrderItemOutputDTO(
-    Long orderItemId,
-    Long orderId,
-    Long dishId,
+    UUID orderItemId,
+    UUID orderId,
+    UUID dishId,
     String dishName,
     Integer quantity,
     Double unitPrice,

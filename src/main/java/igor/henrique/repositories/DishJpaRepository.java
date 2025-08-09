@@ -5,10 +5,11 @@ import jakarta.validation.constraints.NotBlank;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
+import java.util.UUID;
 
-public interface DishJpaRepository extends JpaRepository<Dish, Long> {
+public interface DishJpaRepository extends JpaRepository<Dish, UUID> {
 
-    Optional<Dish> findByDishId(long dishId);
+    Optional<Dish> findByDishId(UUID dishId);
 
     Optional<Object> findByName(@NotBlank String name);
 }

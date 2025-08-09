@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -18,7 +19,7 @@ public class ListOrderItemByOrderIdUseCase {
     private final OrderItemJpaRepository orderItemJpaRepository;
     private final OrderItemStructMapper orderItemStructMapper;
 
-    public List<OrderItemOutputDTO> listItems(Long orderId) {
+    public List<OrderItemOutputDTO> listItems(UUID orderId) {
         Order order = orderJpaRepository.findByOrderId(orderId)
                 .orElseThrow(() -> new IllegalArgumentException("Pedido não encontrado com o ID: " + orderId));
 

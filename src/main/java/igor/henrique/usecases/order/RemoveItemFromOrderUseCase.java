@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -19,7 +20,7 @@ public class RemoveItemFromOrderUseCase {
     private final OrderItemJpaRepository orderItemJpaRepository;
 
     @Transactional
-    public void removeItem(Long orderId, Long itemId) {
+    public void removeItem(UUID orderId, UUID itemId) {
         Order order = orderJpaRepository.findByOrderId(orderId)
                 .orElseThrow(() -> new IllegalArgumentException("Pedido não encontrado"));
 

@@ -6,6 +6,8 @@ import igor.henrique.repositories.OrderJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 @RequiredArgsConstructor
 public class GetOrderDetailsUseCase {
@@ -13,7 +15,7 @@ public class GetOrderDetailsUseCase {
     private final OrderJpaRepository orderJpaRepository;
     private final OrderDetailsMapper orderDetailsMapper;
 
-    public OrderDetailsOutputDTO getOrderDetails(Long orderId) {
+    public OrderDetailsOutputDTO getOrderDetails(UUID orderId) {
         return orderJpaRepository.findById(orderId)
                 .map(orderDetailsMapper::toOrderDetailsOutputDTO)
                 .orElseThrow(() -> new IllegalArgumentException("Pedido não encontrado"));

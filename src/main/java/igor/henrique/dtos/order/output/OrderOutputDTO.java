@@ -1,9 +1,10 @@
 package igor.henrique.dtos.order.output;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 public record OrderOutputDTO(
-        Long orderId,
+        UUID orderId,
         Integer tableNumber,
         String waiterName,
         String orderStatus,

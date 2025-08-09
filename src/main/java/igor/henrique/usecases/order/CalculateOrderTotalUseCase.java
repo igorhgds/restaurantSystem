@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -14,7 +15,7 @@ public class CalculateOrderTotalUseCase {
 
     private final OrderJpaRepository orderJpaRepository;
 
-    public OrderTotalOutputDTO calculateTotal(Long orderId) {
+    public OrderTotalOutputDTO calculateTotal(UUID orderId) {
         Order order = orderJpaRepository.findById(orderId)
                 .orElseThrow(() -> new IllegalArgumentException("Pedido não encontrado com id: " + orderId));
 

@@ -18,6 +18,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 import java.util.Objects;
+import java.util.UUID;
 
 
 @Component
@@ -26,7 +27,6 @@ public class AuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtTokenService jwtTokenService;
     private final UserJpaRepository userJpaRepository;
-    //private final MessageService messageService;
 
     @Override
     protected void doFilterInternal(
@@ -53,19 +53,15 @@ public class AuthenticationFilter extends OncePerRequestFilter {
         return token.substring(7);
     }
 
-    // O parâmetro 'userIdString' ainda é uma String, vindo do JWT
     private void authenticate(String userIdString, HttpServletRequest request ){
-        // *** MUDANÇA AQUI: Converter a String do JWT para Long ***
-        Long userIdAsLong;
+        UUID userIdAsUUID;
         try {
-            userIdAsLong = Long.parseLong(userIdString);
-        } catch (NumberFormatException e) {
-            // Se o subject do JWT não for um número válido, isso é um erro de autenticação.
-            // Permita que a exceção seja propagada para o tratamento padrão do Spring Security (401).
+            userIdAsUUID = UUID.fromString(userIdString);
+        } catch (IllegalArgumentException e) {
             throw new RuntimeException("Invalid user ID in token: " + userIdString, e);
         }
 
-        final var user = this.userJpaRepository.findByUserId(userIdAsLong)
+        final var user = this.userJpaRepository.findByUserId(userIdAsUUID)
                 .orElseThrow(EntityNotFoundException::new);
 
         final var userDetails = new UserDetailsDTO(user);

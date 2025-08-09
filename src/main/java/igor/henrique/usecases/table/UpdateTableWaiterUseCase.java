@@ -6,6 +6,8 @@ import igor.henrique.repositories.UserJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 @RequiredArgsConstructor
 public class UpdateTableWaiterUseCase {
@@ -13,7 +15,7 @@ public class UpdateTableWaiterUseCase {
     private final TableJpaRepository tableJpaRepository;
     private final UserJpaRepository userJpaRepository;
 
-    public void updateTableWaiter(Integer tableNumber, Long waiterId) {
+    public void updateTableWaiter(Integer tableNumber, UUID waiterId) {
         var table = tableJpaRepository.findByTableNumber(tableNumber)
                 .orElseThrow(() -> new IllegalArgumentException("Mesa não encontrada"));
 

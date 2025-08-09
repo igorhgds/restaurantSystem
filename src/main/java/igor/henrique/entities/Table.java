@@ -16,6 +16,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity(name = "tables")
 @Getter
@@ -25,9 +26,9 @@ import java.time.LocalDateTime;
 public class Table {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "table_id")
-    private Long tableId;
+    private UUID tableId;
 
     @Column(name = "table_number", nullable = false)
     private Integer tableNumber;

@@ -31,6 +31,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/orders")
@@ -54,7 +55,7 @@ public class OrderController {
     }
 
     @PutMapping("/{id}/close")
-    public ResponseEntity<Void> closeOrder(@PathVariable Long id) {
+    public ResponseEntity<Void> closeOrder(@PathVariable UUID id) {
         closeOrderUseCase.closeOrder(id);
         return ResponseEntity.noContent().build();
     }
@@ -72,7 +73,7 @@ public class OrderController {
 
     @PostMapping("/{orderId}/items")
     public ResponseEntity<OrderItemOutputDTO> addItemToOrder(
-            @PathVariable Long orderId,
+            @PathVariable UUID orderId,
             @RequestBody @Valid CreateOrderItemInputDTO dto) {
 
         CreateOrderItemInputDTO fixedDto = new CreateOrderItemInputDTO(
@@ -88,26 +89,26 @@ public class OrderController {
 
     @DeleteMapping("/{orderId}/items/{orderItemId}")
     public ResponseEntity<Void> removeItemFromOrder(
-            @PathVariable Long orderId,
-            @PathVariable Long orderItemId) {
+            @PathVariable UUID orderId,
+            @PathVariable UUID orderItemId) {
 
         removeItemFromOrderUseCase.removeItem(orderId, orderItemId);
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/{orderId}/items")
-    public ResponseEntity<List<OrderItemOutputDTO>> listItems(@PathVariable Long orderId) {
+    public ResponseEntity<List<OrderItemOutputDTO>> listItems(@PathVariable UUID orderId) {
         List<OrderItemOutputDTO> items = listOrderItemByOrderIdUseCase.listItems(orderId);
         return ResponseEntity.ok(items);
     }
 
     @GetMapping("/{orderId}/details")
-    public ResponseEntity<OrderDetailsOutputDTO> getOrderDetails(@PathVariable Long orderId) {
+    public ResponseEntity<OrderDetailsOutputDTO> getOrderDetails(@PathVariable UUID orderId) {
         return ResponseEntity.ok(getOrderDetailsUseCase.getOrderDetails(orderId));
     }
 
     @GetMapping("/{orderId}/total")
-    public ResponseEntity<OrderTotalOutputDTO> calculateTotal(@PathVariable Long orderId) {
+    public ResponseEntity<OrderTotalOutputDTO> calculateTotal(@PathVariable UUID orderId) {
         OrderTotalOutputDTO dto = calculateOrderTotalUseCase.calculateTotal(orderId);
         return ResponseEntity.ok(dto);
     }

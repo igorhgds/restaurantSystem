@@ -8,10 +8,11 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
-public interface OrderJpaRepository extends JpaRepository<Order, Long> {
+public interface OrderJpaRepository extends JpaRepository<Order, UUID> {
 
-    Optional<Order> findByOrderId(Long orderId);
+    Optional<Order> findByOrderId(UUID orderId);
 
     @Query("""
     SELECT o FROM orders o

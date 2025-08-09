@@ -1,10 +1,11 @@
 package igor.henrique.dtos.order_item.input;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 public record CreateOrderItemInputDTO(
-    Long orderId,
-    Long dishId,
+    UUID orderId,
+    UUID dishId,
     Integer quantity,
     BigDecimal unitPrice
 ) {
