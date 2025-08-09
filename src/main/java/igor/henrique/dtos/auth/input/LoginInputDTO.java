@@ -10,7 +10,7 @@ import lombok.Setter;
 @Setter
 public class LoginInputDTO {
     @Email
-    @Schema(example = "example@gmail.com", requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(example = "example@example.com", requiredMode = Schema.RequiredMode.REQUIRED)
     private String email;
 
     @NotBlank

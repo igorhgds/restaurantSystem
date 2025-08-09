@@ -39,7 +39,8 @@ public class SecurityConfig {
 
     private static final String[] PUBLIC_POST_ENDPOINTS = {
             "/users",
-            "/login"
+            "/login",
+            "/tables"
     };
 
     private static final String[] PUBLIC_PATCH_ENDPOINTS = {
@@ -54,6 +55,10 @@ public class SecurityConfig {
             "/users/{id}"
     };
 
+//    private static final String[] PRIVATE_POST_WAITER_ENDPOINTS = {
+//            "/tables"
+//    };
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
@@ -63,16 +68,14 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.PATCH, PUBLIC_PATCH_ENDPOINTS).permitAll()
                         .requestMatchers(HttpMethod.POST, PUBLIC_POST_ENDPOINTS).permitAll()
                         .requestMatchers(HttpMethod.GET, PUBLIC_GET_ENDPOINTS).permitAll()
-                        .requestMatchers(
-                                RegexRequestMatcher.regexMatcher(
-                                        HttpMethod.GET, "/user/" + UUID_REGEX)).hasAnyAuthority(UserRole.ADMIN.name())
-                        .requestMatchers(SWAGGER_RESOURCES).permitAll()
 
                         .requestMatchers(HttpMethod.POST, "/users").hasRole(UserRole.ADMIN.name())
                         .requestMatchers(HttpMethod.DELETE, "/users/{id}").hasRole(UserRole.ADMIN.name())
+
+                        .requestMatchers(RegexRequestMatcher.regexMatcher(HttpMethod.GET, "/user/" + UUID_REGEX)).hasAnyAuthority(UserRole.ADMIN.name())
+                        .requestMatchers(SWAGGER_RESOURCES).permitAll()
                         .anyRequest().authenticated()
                 )
-                // Use a instância do filtro que você acabou de criar NESTA LINHA
                 .addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
